@@ -28,7 +28,7 @@ func (o *Adapter) Upsert(ctx context.Context, records []app.Item) (err error) {
 	var rollback bool
 	for i := 0; i < len(records); i += 10000 {
 		r := i + 10000
-		if len(records) < i {
+		if len(records) < r {
 			r = len(records)
 		}
 		l := i
