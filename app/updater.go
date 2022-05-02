@@ -27,6 +27,18 @@ func (o *Upserter) Upsert(ctx context.Context, records []Item) (err error) {
 			return
 		}
 		exist[item.ID] = struct{}{}
+		if item.ID < 0 {
+			err = fmt.Errorf("invalid product id %v", item.ID)
+			return
+		}
+		if item.Price < 0 {
+			err = fmt.Errorf("invalid product price %v", item.Price)
+			return
+		}
+		if item.Stock < 0 {
+			err = fmt.Errorf("invalid product stock %v", item.Stock)
+			return
+		}
 	}
 	err = o.DB.Upsert(ctx, records)
 	return
